@@ -17,7 +17,9 @@ from datetime import datetime, timezone, timedelta
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad, unpad
 
-
+#USER_DATA = [
+#    ["chen.com", "12345ssdlh"],
+#]
 # 账号,密码（注意格式）
 ENV_USERS = os.environ.get("HUAMI_USERS") or os.environ.get("HUAMI_USERS_FALLBACK") or ""
 USER_DATA = []

@@ -9,6 +9,9 @@ on:
   schedule:
     - cron: '0 10 * * *'
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -33,6 +36,7 @@ jobs:
       run: python scr/py/huami.py
 
     - name: commit and push changes
+      if: github.event_name != 'pull_request'
       run: |
         git config user.name "github-actions[bot]"
         git config user.email "github-actions[bot]@users.noreply.github.com"
