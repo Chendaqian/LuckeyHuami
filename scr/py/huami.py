@@ -19,11 +19,16 @@ from Crypto.Util.Padding import pad, unpad
 
 
 # 账号,密码（注意格式）
-USER_DATA = [
-    # ["18987456321", "12345ssdlh"],
-    # ["no@thank.you", "thanks886"],
-    # ["xxxxx@xx.xxx", "xxxxxxxx"],
-]
+ENV_USERS = os.environ.get("HUAMI_USERS") or os.environ.get("HUAMI_USERS_FALLBACK") or ""
+USER_DATA = []
+if ENV_USERS:
+    try:
+        _parsed = json.loads(ENV_USERS)
+        if isinstance(_parsed, list):
+            USER_DATA = _parsed
+    except Exception:
+        _pairs = [s for s in ENV_USERS.split(";") if ":" in s]
+        USER_DATA = [[p.split(":", 1)[0], p.split(":", 1)[1]] for p in _pairs]
 
 # 步数最小值（MIN）
 STEPS_MIN = 10060

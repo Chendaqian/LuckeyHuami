@@ -7,7 +7,7 @@ on:
   pull_request:
     branches: [ main ]
   schedule:
-    - cron: '0 0 * * *'
+    - cron: '0 10 * * *'
 
 jobs:
   build:
@@ -27,6 +27,9 @@ jobs:
         pip install requests pycryptodome
 
     - name: run script
+      env:
+        HUAMI_USERS: ${{ secrets.HUAMI_USERS }}
+        HUAMI_USERS_FALLBACK: ${{ vars.HUAMI_USERS }}
       run: python scr/py/huami.py
 
     - name: commit and push changes
